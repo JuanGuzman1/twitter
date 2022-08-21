@@ -25,7 +25,7 @@ export default function Post({ post }) {
             <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
               {post.name}
             </h4>
-            <span className="text-sm sm:text-[15px]">{post.username} - </span>
+            <span className="text-sm sm:text-[15px]">@{post.username} - </span>
             <span className="text-sm sm:text-[15px] hover:underline">
               {post.timestamp}
             </span>

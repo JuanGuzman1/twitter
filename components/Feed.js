@@ -7,7 +7,7 @@ export default function Feed() {
     {
       id: "1",
       name: "Juan Guzman",
-      username: "@juanguzman",
+      username: "juanguzman",
       userImg:
         "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iFQLjEeO6bIQ/v0/-1x-1.jpg",
       img: "https://images.unsplash.com/photo-1660911713510-db313ff34c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -17,7 +17,7 @@ export default function Feed() {
     {
       id: "2",
       name: "Juan Guzman",
-      username: "@juanguzman",
+      username: "juanguzman",
       userImg:
         "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iFQLjEeO6bIQ/v0/-1x-1.jpg",
       img: "https://images.unsplash.com/photo-1660860548716-a750ac5b2bbc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",

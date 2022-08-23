@@ -57,21 +57,26 @@ export default function Post({ post }) {
   async function deletePost() {
     if (window.confirm("Are you sure you want to delete this post?")) {
       deleteDoc(doc(db, "posts", post.id));
-      deleteObject(ref(storage, `posts/${post.id}/image`));
+      if (post.data().image) {
+        deleteObject(ref(storage, `posts/${post.id}/image`));
+      }
     }
   }
 
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       {/* user image */}
-      <Image
-        width={100}
-        height={41}
-        layout="fixed"
-        className="rounded-full mr-4"
-        src={post.data().userImg}
-        alt="user-img"
-      />
+      <div className="h-11 w-11 mr-4">
+        <Image
+          width={44}
+          height={44}
+          layout="fixed"
+          className="rounded-full"
+          src={post.data().userImg}
+          alt="user-img"
+        />
+      </div>
+
       {/* right side */}
       <div>
         {/* header */}
@@ -85,7 +90,7 @@ export default function Post({ post }) {
               @{post.data().username} -{" "}
             </span>
             <span className="text-sm sm:text-[15px] hover:underline">
-              <Moment fromNow>{post.data().timestamp.toDate()}</Moment>
+              <Moment fromNow>{post?.data()?.timestamp?.toDate()}</Moment>
             </span>
           </div>
           {/* dot Icon */}

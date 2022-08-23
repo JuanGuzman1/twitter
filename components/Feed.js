@@ -1,30 +1,21 @@
+import React, { useState, useEffect } from "react";
 import { SparklesIcon } from "@heroicons/react/outline";
 import Input from "./Input";
 import Post from "./Post";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Feed() {
-  const posts = [
-    {
-      id: "1",
-      name: "Juan Guzman",
-      username: "juanguzman",
-      userImg:
-        "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iFQLjEeO6bIQ/v0/-1x-1.jpg",
-      img: "https://images.unsplash.com/photo-1660911713510-db313ff34c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-      text: "Nice View!!",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: "2",
-      name: "Juan Guzman",
-      username: "juanguzman",
-      userImg:
-        "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iFQLjEeO6bIQ/v0/-1x-1.jpg",
-      img: "https://images.unsplash.com/photo-1660860548716-a750ac5b2bbc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      text: " View the diamond",
-      timestamp: "2 days ago",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    onSnapshot(
+      query(collection(db, "posts"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        setPosts(snapshot.docs);
+      }
+    );
+  }, []);
 
   return (
     <div className="xl:ml-[370px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">

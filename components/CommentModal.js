@@ -36,6 +36,7 @@ export default function CommentModal() {
 
   const sendComment = async () => {
     await addDoc(collection(db, "posts", postId, "comments"), {
+      userId: session.user.uuid,
       comment: input,
       name: session.user.name,
       username: session.user.username,

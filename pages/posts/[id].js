@@ -15,6 +15,7 @@ import {
   query,
 } from "firebase/firestore";
 import Comment from "../../components/Comment";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function PostPage({ newsResult, randomUsersResult }) {
   const [post, setPost] = useState();
@@ -69,14 +70,24 @@ export default function PostPage({ newsResult, randomUsersResult }) {
           {post && <Post id={id} post={post} />}
 
           <div>
-            {comments.map((comment) => (
-              <Comment
-                key={comment.id}
-                commentId={comment.id}
-                originalPostId={id}
-                comment={comment.data()}
-              />
-            ))}
+            <AnimatePresence>
+              {comments.map((comment) => (
+                <motion.div
+                  key={comment.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1 }}
+                >
+                  <Comment
+                    key={comment.id}
+                    commentId={comment.id}
+                    originalPostId={id}
+                    comment={comment.data()}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
 

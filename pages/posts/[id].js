@@ -7,17 +7,41 @@ import Post from "../../components/Post";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import Comment from "../../components/Comment";
 
 export default function PostPage({ newsResult, randomUsersResult }) {
   const [post, setPost] = useState();
+  const [comments, setComments] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+
+  //get post
 
   useEffect(() => {
     onSnapshot(doc(db, "posts", id), (snapshot) => {
       setPost(snapshot);
     });
+  }, [db, id]);
+
+  //get comments
+
+  useEffect(() => {
+    onSnapshot(
+      query(
+        collection(db, "posts", id, "comments"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) => {
+        setComments(snapshot.docs);
+      }
+    );
   }, [db, id]);
 
   return (
@@ -43,6 +67,16 @@ export default function PostPage({ newsResult, randomUsersResult }) {
             </h2>
           </div>
           {post && <Post id={id} post={post} />}
+
+          <div>
+            {comments.map((comment) => (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                comment={comment.data()}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Widgets */}
